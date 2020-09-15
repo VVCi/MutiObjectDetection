@@ -6,6 +6,18 @@
 using namespace std;
 using namespace cv;
 
+#define RANGE_L5	-5;
+#define RANGE_L4	-4;
+#define RANGE_L3	-3;
+#define RANGE_L2	-2;
+#define RANGE_L1	-1;
+#define MID			0;
+#define RANGE_R1	1;
+#define RANGE_R2	2;
+#define RANGE_R3	3;
+#define RANGE_R4	4;
+#define RANGE_R5	5;
+
 class Fruit
 {
 public:
@@ -44,3 +56,5 @@ private:
 	Scalar HSVmin, HSVmax;
 	Scalar Colour;
 };
+
+uint32_t range(uint32_t point);
