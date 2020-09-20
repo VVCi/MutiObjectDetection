@@ -16,9 +16,11 @@ QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    Fruit.cpp
+    Fruit.cpp \
+    serial.cpp
 
 HEADERS  += mainwindow.h \
-    Fruit.h
+    Fruit.h \
+    serial.h
 
 FORMS    += mainwindow.ui

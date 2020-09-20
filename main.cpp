@@ -16,6 +16,7 @@ using namespace std;
 using namespace cv;
 
 #include "Fruit.h"
+#include "serial.h"
 
 //initial min and max HSV filter values.
 //these will be changed using trackbars
@@ -25,9 +26,14 @@ int S_MIN = 70;
 int S_MAX = 145;
 int V_MIN = 220;
 int V_MAX = 256;
-//var
+
+//Point
 uint32_t X, Y;
 uint32_t Y_RANGE[10];
+
+//Pointer Data Transfer
+uint8_t *data = NULL;
+
 //default capture width and height
 const int FRAME_WIDTH = 640;
 const int FRAME_HEIGHT = 480;
@@ -79,6 +85,9 @@ void createTrackbars(){
 }
 void drawObject(vector<Fruit> theFruits,Mat &frame){
 
+	uint8_t a = 1;
+	uint8_t *data = &a;
+
 	for(int i =0; i<theFruits.size(); i++){
 
 		cv::circle(frame,cv::Point(theFruits.at(i).getXPos(),theFruits.at(i).getYPos()),10,cv::Scalar(0,0,255));
@@ -87,9 +96,10 @@ void drawObject(vector<Fruit> theFruits,Mat &frame){
 		//push X and Y
 		X = (theFruits.at(i).getXPos());
 		Y = (theFruits.at(i).getYPos());
-		range(Y);
+
 	}
 }
+
 void morphOps(Mat &thresh){
 
 	//create structuring element that will be used to "dilate" and "erode" image.
@@ -140,17 +150,14 @@ void trackFilteredObject(Mat threshold,Mat HSV, Mat &cameraFeed){
 					apple.setXPos(moment.m10/area);
 					apple.setYPos(moment.m01/area);
 
-
 					apples.push_back(apple);
 
 					objectFound = true;
 
 				}else objectFound = false;
-
-
 			}
 			//let user know you found an object
-			if(objectFound ==true){
+			if(objectFound == true){
 				//draw object location on screen
 				drawObject(apples,cameraFeed);}
 
@@ -199,8 +206,6 @@ void trackFilteredObject(Fruit theFruit,Mat threshold,Mat HSV, Mat &cameraFeed){
 					objectFound = true;
 
 				}else objectFound = false;
-
-
 			}
 			//let user know you found an object
 			if(objectFound ==true){
@@ -214,7 +219,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	MainWindow w;
-	//if we would like to calibrate our filter values, set to true.
+	//if we would like to calibrate our filter values, set to true.f
 	bool calibrationMode = true;
 
 	//Matrix to store each frame of the webcam feed
@@ -225,17 +230,26 @@ int main(int argc, char *argv[])
 	if(calibrationMode){
 		//create slider bars for HSV filtering
 		createTrackbars();
+		if (if_cpu_serial_opentty("/dev/ttyACM0") == 0){
+			qDebug("Open Serial OK\n");
+		}else{
+			qDebug("Open Serial ERROR\n");
+		}
+
 	}
 	//video capture object to acquire webcam feed
 	VideoCapture capture;
 	//open capture object at location zero (default location for webcam)
 	capture.open(0);
 	//set height and width of capture frame
-	capture.set(CV_CAP_PROP_FRAME_WIDTH,FRAME_WIDTH);
-	capture.set(CV_CAP_PROP_FRAME_HEIGHT,FRAME_HEIGHT);
+	capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
+	capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
+
 	//start an infinite loop where webcam feed is copied to cameraFeed matrix
 	//all of our operations will be performed within this loop
+
 	while(1){
+
 		//store image to matrix
 		capture.read(cameraFeed);
 		//convert frame from BGR to HSV colorspace
@@ -252,8 +266,6 @@ int main(int argc, char *argv[])
 			//create some temp fruit objects so that
 			//we can use their member functions/information
 			Fruit apple("apple"), banana("banana"), cherry("cherry");
-
-
 			//first find apples
 			cvtColor(cameraFeed,HSV,COLOR_BGR2HSV);
 			inRange(HSV,apple.getHSVmin(),apple.getHSVmax(),threshold);
@@ -269,10 +281,7 @@ int main(int argc, char *argv[])
 			inRange(HSV,cherry.getHSVmin(),cherry.getHSVmax(),threshold);
 			morphOps(threshold);
 			trackFilteredObject(cherry,threshold,HSV,cameraFeed);
-
-
 		}
-
 		//show frames
 		//imshow(windowName2,threshold);
 

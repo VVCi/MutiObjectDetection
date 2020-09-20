@@ -12,6 +12,7 @@
 #include <termios.h>
 #include <errno.h>
 #include <semaphore.h>
+#include "serial.h"
 
 static int if_cpu_serial_fd;
 
@@ -24,6 +25,7 @@ static uint8_t tx_buffer[1024];
 
 int if_cpu_serial_opentty(const char* devpath) {
 	struct termios options;
+	printf("\nOpen Serial OK\n");
 	printf("[IF CPU SERIAL][if_cpu_serial_opentty] devpath: %s\n", devpath);
 
 	if_cpu_serial_fd = open(devpath, O_RDWR | O_NOCTTY | O_NDELAY);
@@ -31,8 +33,8 @@ int if_cpu_serial_opentty(const char* devpath) {
 		return if_cpu_serial_fd;
 	}
 	else {
+		printf("\nTranfer Handing");
 		fcntl(if_cpu_serial_fd, F_SETFL, 0);
-
 		/* get current status */
 		tcgetattr(if_cpu_serial_fd, &options);
 

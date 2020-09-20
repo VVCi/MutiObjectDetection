@@ -1,4 +1,4 @@
-#pragma once
+#include <iostream>
 #include <string>
 #include <opencv2/opencv.hpp>
 #include "opencv2/imgproc/imgproc.hpp"
@@ -6,17 +6,26 @@
 using namespace std;
 using namespace cv;
 
-#define RANGE_L5	-5;
-#define RANGE_L4	-4;
-#define RANGE_L3	-3;
-#define RANGE_L2	-2;
-#define RANGE_L1	-1;
+using namespace std;
+
+/*
+ * Define Range:
+ * ===/===/===/===/===/===/===/===/===/===/===/
+ *	1	2	3	4	5	0	6	7	8	9	10
+ * ===/===/===/===/===/===/===/===/===/===/===/
+*/
+
+#define RANGE_L5	1;
+#define RANGE_L4	2;
+#define RANGE_L3	3;
+#define RANGE_L2	4;
+#define RANGE_L1	5;
 #define MID			0;
-#define RANGE_R1	1;
-#define RANGE_R2	2;
-#define RANGE_R3	3;
-#define RANGE_R4	4;
-#define RANGE_R5	5;
+#define RANGE_R1	6;
+#define RANGE_R2	7;
+#define RANGE_R3	8;
+#define RANGE_R4	9;
+#define RANGE_R5	10;
 
 class Fruit
 {

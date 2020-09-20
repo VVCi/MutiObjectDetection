@@ -1,7 +1,5 @@
 #include "Fruit.h"
 
-
-
 Fruit::Fruit()
 {
 	//set values for default constructor
@@ -50,8 +48,6 @@ Fruit::Fruit(string name){
 		setColour(Scalar(0,0,255));
 
 	}
-
-
 
 }
 
