@@ -88,15 +88,15 @@ void drawObject(vector<Fruit> theFruits,Mat &frame){
 	uint8_t a = 1;
 	uint8_t *data = &a;
 
-	for(int i =0; i<theFruits.size(); i++){
+	for(int i =0; i < theFruits.size(); i++){
 
 		cv::circle(frame,cv::Point(theFruits.at(i).getXPos(),theFruits.at(i).getYPos()),10,cv::Scalar(0,0,255));
 		cv::putText(frame,intToString(theFruits.at(i).getXPos())+ " , " + intToString(theFruits.at(i).getYPos()),cv::Point(theFruits.at(i).getXPos(),theFruits.at(i).getYPos()+20),1,1,Scalar(0,255,0));
 		cv::putText(frame,theFruits.at(i).getType(),cv::Point(theFruits.at(i).getXPos(),theFruits.at(i).getYPos()-30),1,2,theFruits.at(i).getColour());
+
 		//push X and Y
 		X = (theFruits.at(i).getXPos());
 		Y = (theFruits.at(i).getYPos());
-
 	}
 }
 
@@ -150,6 +150,12 @@ void trackFilteredObject(Mat threshold,Mat HSV, Mat &cameraFeed){
 					apple.setXPos(moment.m10/area);
 					apple.setYPos(moment.m01/area);
 
+
+					uint8_t send_data[2];
+					send_data[0] = 1;
+					send_data[1] = 2;
+					tx_frame_post((uint8_t *)send_data, 2);
+
 					apples.push_back(apple);
 
 					objectFound = true;
@@ -165,8 +171,6 @@ void trackFilteredObject(Mat threshold,Mat HSV, Mat &cameraFeed){
 	}
 }
 void trackFilteredObject(Fruit theFruit,Mat threshold,Mat HSV, Mat &cameraFeed){
-
-
 	vector <Fruit> apples;
 
 	Mat temp;

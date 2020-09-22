@@ -12,7 +12,6 @@
 #include <termios.h>
 #include <errno.h>
 #include <semaphore.h>
-#include "serial.h"
 
 static int if_cpu_serial_fd;
 
