@@ -1,10 +1,14 @@
-#include "fruit.h"
+#include "Fruit.h"
+#include <QApplication>
+
 
 Fruit::Fruit()
 {
 	//set values for default constructor
 	setType("Point");
 	setColour(Scalar(0,0,0));
+	getXPos();
+	getYPos();
 
 }
 
@@ -101,47 +105,52 @@ void Fruit::setHSVmax(Scalar max){
 }
 
 uint32_t range(uint32_t point){
-	if (point >= 0 && point <= 63){
-		return RANGE_L5;
-	}
 
-	else if (point >= 64 && point <= 127){
-		return RANGE_L4;
-	}
-
-	else if (point >= 128 && point <= 191){
+	/* Turn Left_3*/
+	if (point >= 0 && point < 91){
+		qDebug("1");
 		return RANGE_L3;
 	}
 
-	else if (point >= 192 && point <= 255){
+	/* Turn Left_2*/
+	else if (point >= 91 && point < 182){
+		qDebug("2");
 		return RANGE_L2;
 	}
 
-	else if (point >= 256 && point <= 320){
+	/* Turn Left_1*/
+	else if (point >= 182 && point < 273){
+		qDebug("3");
 		return RANGE_L1;
 	}
 
-	else if (point >= 321 && point <= 320){
+	/* Hold Center*/
+	else if (point >= 273 && point < 367){
+		qDebug("4");
+		return MID;
+	}
+
+	/* Turn Right_1*/
+	else if (point >= 367 && point < 458){
+		qDebug("5");
 		return RANGE_R1;
 	}
 
-	else if (point >= 386 && point <= 450){
+	/* Turn Right_2*/
+	else if (point >= 458 && point < 549){
+		qDebug("6");
 		return RANGE_R2;
 	}
 
-	else if (point >= 451 && point <= 515){
+	/* Turn Right_3*/
+	else if (point >= 549 && point < 640){
+		qDebug("7");
 		return RANGE_R3;
 	}
 
-	else if (point >= 516 && point <= 580){
-		return RANGE_R4;
-	}
-
-	else if (point >= 581 && point <= 640){
-		return RANGE_R5;
-	}
-
+	/* Hold Center*/
 	else {
+		qDebug("4");
 		return MID;
 	}
 }

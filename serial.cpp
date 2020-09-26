@@ -67,7 +67,6 @@ uint8_t if_cpu_serial_calcfcs(uint8_t len, uint8_t *data_ptr) {
 	for (int i = 0; i < len; i++, data_ptr++) {
 		xor_result = xor_result ^ *data_ptr;
 	}
-
 	return xor_result;
 }
 

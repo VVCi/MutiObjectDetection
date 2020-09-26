@@ -1,3 +1,8 @@
+/*@Author: NinhNN - CoVV
+ *@Date: 2020
+ *@Note: Open Source GNU/Linux
+*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
