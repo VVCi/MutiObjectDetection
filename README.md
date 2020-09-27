@@ -1,6 +1,6 @@
-# MutiObjectDetection
-# Seft-Semi Robot using OpenCV lib
+# MutiObjectDetection using OpenCV C/C++
+# Target: Semi-Automatic Robot
 /*
-@Author: CoVV
 @Date: 2020
+@OpenSource GNU/Linux
 */
