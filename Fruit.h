@@ -2,7 +2,6 @@
  *@Date: 2020
  *@Note: Open Source GNU/Linux
 */
-
 #pragma once
 #include <string>
 #include <opencv2/opencv.hpp>

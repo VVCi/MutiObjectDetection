@@ -15,12 +15,14 @@ LIBS += /usr/local/lib/*.so
 QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp\
+    distance.cpp \
         mainwindow.cpp \
     Fruit.cpp \
     serial.cpp
 
 HEADERS  += mainwindow.h \
     Fruit.h \
+    distance.h \
     serial.h
 
 FORMS    += mainwindow.ui

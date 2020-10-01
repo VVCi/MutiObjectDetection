@@ -7,13 +7,9 @@ Fruit::Fruit()
 	//set values for default constructor
 	setType("Point");
 	setColour(Scalar(0,0,0));
-	getXPos();
-	getYPos();
-
 }
 
 Fruit::Fruit(string name){
-
 	setType(name);
 	
 	if(name=="apple"){
